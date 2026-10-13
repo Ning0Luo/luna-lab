@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="flow" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#e0a93b"/>
+      <stop offset=".5" stop-color="#e8774f"/>
+      <stop offset="1" stop-color="#8fa8f0"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2c2c2e"/>
+      <stop offset="1" stop-color="#1c1c1e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <style>
+      .dash { stroke-dasharray: 6 10; animation: run 1.6s linear infinite; }
+      @keyframes run { to { stroke-dashoffset: -32; } }
+      @media (prefers-reduced-motion: reduce) { .dash { animation: none; } }
+      .name { fill: #f5f5f7; font-size: 19px; font-weight: 600; }
+      .ok { fill: #30d158; font-size: 13px; font-weight: 500; }
+      .small { fill: #86868b; font-size: 14px; font-weight: 500; }
+    </style>
+  </defs>
+
+  <!-- attack path -->
+  <path d="M70 140 C 130 140, 150 140, 200 140 M 320 140 C 360 140, 380 140, 420 140 M 540 140 C 580 140, 600 140, 640 140 M 760 140 C 810 140, 840 140, 890 140"
+        stroke="url(#flow)" stroke-width="10" fill="none" opacity=".35" filter="url(#glow)"/>
+  <path class="dash" d="M70 140 H 200 M 320 140 H 420 M 540 140 H 640 M 760 140 H 890"
+        stroke="url(#flow)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- web page -->
+  <circle cx="54" cy="140" r="18" fill="none" stroke="#e0a93b" stroke-width="2.5"/>
+  <path d="M36 140 H72 M54 122 C 44 132, 44 148, 54 158 M54 122 C 64 132, 64 148, 54 158" stroke="#e0a93b" stroke-width="2" fill="none"/>
+  <text class="small" x="54" y="190" text-anchor="middle">web page</text>
+
+  <!-- agents -->
+  <g>
+    <rect x="200" y="96" width="120" height="88" rx="18" fill="url(#card)" stroke="#3a3a3c"/>
+    <text class="name" x="260" y="136" text-anchor="middle">Cursor</text>
+    <text class="ok" x="260" y="160" text-anchor="middle">✓ passed review</text>
+  </g>
+  <g>
+    <rect x="420" y="96" width="120" height="88" rx="18" fill="url(#card)" stroke="#3a3a3c"/>
+    <text class="name" x="480" y="136" text-anchor="middle">Codex</text>
+    <text class="ok" x="480" y="160" text-anchor="middle">✓ passed review</text>
+  </g>
+  <g>
+    <rect x="640" y="96" width="120" height="88" rx="18" fill="url(#card)" stroke="#3a3a3c"/>
+    <text class="name" x="700" y="136" text-anchor="middle">Claude Code</text>
+    <text class="ok" x="700" y="160" text-anchor="middle">✓ passed review</text>
+  </g>
+
+  <!-- shared file between Cursor and Codex -->
+  <text class="small" x="370" y="124" text-anchor="middle">AGENTS.md</text>
+
+  <!-- key read by Codex -->
+  <path class="dash" d="M480 262 V 184" stroke="#e8774f" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <g transform="translate(480 276)">
+    <circle cx="-10" cy="0" r="9" fill="none" stroke="#e8774f" stroke-width="2.5"/>
+    <path d="M-1 0 H 16 M 10 0 V 6 M 15 0 V 5" stroke="#e8774f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  </g>
+  <text class="small" x="510" y="281">~/.ssh</text>
+
+  <!-- internet -->
+  <circle cx="908" cy="140" r="18" fill="#8fa8f0" opacity=".18"/>
+  <path d="M898 140 H 918 M 911 133 L 918 140 L 911 147" stroke="#8fa8f0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text class="small" x="908" y="190" text-anchor="middle">internet</text>
+</svg>

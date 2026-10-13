@@ -1,0 +1,177 @@
+<!doctype html><html><head><title>Promised Image Demo — Evidence</title><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column; the two outcomes side by side, stacking on phones. */
+:root {
+  --bg: #f5f7fa; --surface: #ffffff; --fg: #16202c; --muted: #586474; --line: #d9dfe7;
+  --accent: #2c5a96; --ok: #23784a; --ok-bg: #e5f3ea; --bad: #b0291f; --bad-bg: #fbe9e7;
+  --code: #edf1f5;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141b; --surface: #151d26; --fg: #e4e9f0; --muted: #98a3b3; --line: #273240;
+    --accent: #8db5ee; --ok: #6cc391; --ok-bg: #12291c; --bad: #f08b80; --bad-bg: #2e1614;
+    --code: #19222d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141b; --surface: #151d26; --fg: #e4e9f0; --muted: #98a3b3; --line: #273240;
+  --accent: #8db5ee; --ok: #6cc391; --ok-bg: #12291c; --bad: #f08b80; --bad-bg: #2e1614;
+  --code: #19222d; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--sans); }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px;
+  display: grid; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.25; }
+h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 1.25rem; font-weight: 600; }
+h3 { font-size: 1rem; font-weight: 600; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font: 500 0.75rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); }
+header { display: grid; gap: 10px; }
+.meta { color: var(--muted); font-size: 0.9rem; }
+section { display: grid; gap: 14px; min-width: 0; }
+.outcomes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.outcome { border-radius: 10px; padding: 18px 20px; display: grid; gap: 8px; min-width: 0;
+  border: 1px solid var(--line); background: var(--surface); }
+.outcome.ok { background: var(--ok-bg); border-color: transparent; }
+.outcome.bad { background: var(--bad-bg); border-color: transparent; }
+.pill { justify-self: start; font: 600 0.75rem var(--sans); letter-spacing: 0.04em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px; color: var(--bg); }
+.ok .pill { background: var(--ok); }
+.bad .pill { background: var(--bad); }
+.outcome dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px;
+  font-size: 0.92rem; }
+.outcome dt { color: var(--muted); }
+.outcome dd { margin: 0; font-variant-numeric: tabular-nums; }
+code, pre, .digest { font-family: var(--mono); font-size: 0.85rem; }
+pre { background: var(--code); border-radius: 8px; padding: 14px 16px; margin: 0;
+  overflow-x: auto; line-height: 1.55; }
+.digest { display: block; background: var(--code); border-radius: 8px; padding: 10px 14px;
+  overflow-wrap: anywhere; }
+.pin { color: var(--accent); font-weight: 500; }
+.pair { display: grid; gap: 10px; }
+.pair > div { display: grid; gap: 4px; min-width: 0; }
+.label { font-size: 0.85rem; color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+td { padding: 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { color: var(--muted); width: 38%; padding-right: 16px; }
+td code { overflow-wrap: anywhere; }
+.check { color: var(--ok); font-weight: 600; }
+.chart svg { width: 100%; max-width: 520px; height: auto; }
+.chart .bar { fill: var(--accent); }
+.chart .lbl, .chart .val { fill: var(--muted); font: 12px var(--mono); }
+ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 70ch; }
+.note { font-size: 0.9rem; color: var(--muted); border-left: 3px solid var(--line);
+  padding-left: 14px; display: grid; gap: 6px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Live run · GCP Confidential Space · Intel TDX</div>
+    <h1>Promised Image Demo</h1>
+    <p>A data owner's records could be decrypted only by the computation image whose digest they approved.
+       The promised image ran and produced its result. An image that differs by one line was refused
+       by Google's key release before it could read a single record.</p>
+    <div class="meta">Run October 13, 2026, 01:51 UTC · project cdr-sandbox-1012 · 3 encrypted shards,
+      30,000 records</div>
+  </header>
+
+  <section class="outcomes" aria-label="Outcomes">
+    <div class="outcome ok">
+      <span class="pill">Key released</span>
+      <h3>Promised image</h3>
+      <dl>
+        <dt>Digest</dt><dd><code>sha256:662efdda7a06…</code></dd>
+        <dt>Records read</dt><dd>30,000</dd>
+        <dt>Result</dt><dd>per-class statistics, sealed to the computation party</dd>
+        <dt>Raw records out</dt><dd>none</dd>
+      </dl>
+    </div>
+    <div class="outcome bad">
+      <span class="pill">Key refused</span>
+      <h3>Imposter image</h3>
+      <dl>
+        <dt>Digest</dt><dd><code>sha256:a1d3cfd55a73…</code></dd>
+        <dt>Records read</dt><dd>0</dd>
+        <dt>Result</dt><dd>none; the run stopped at key release</dd>
+        <dt>Raw records out</dt><dd>none</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <h2>1. The promise</h2>
+    <p>The computation party built its computation into a container image and published the image's
+       digest. The digest covers every byte of the image, including the code and the public key
+       results are sealed to.</p>
+    <span class="digest">sha256:662efdda7a0630462c79f5ef1a7451f2b44022845972a39f0e3c06ca55fca243</span>
+    <p>The data owner approved that digest. Their key pool on Google Cloud releases the dataset key
+       only when an attestation token shows all of these:</p>
+    <pre>assertion.swname == &#x27;CONFIDENTIAL_SPACE&#x27;
+&amp;&amp; assertion.submods.container.image_digest == &#x27;<span class="pin">sha256:662efdda7a0630462c79f5ef1a7451f2b44022845972a39f0e3c06ca55fca243</span>&#x27;
+&amp;&amp; &#x27;demo-vm@cdr-sandbox-1012.iam.gserviceaccount.com&#x27; in assertion.google_service_accounts</pre>
+  </section>
+
+  <section>
+    <h2>2. The imposter differs by one line</h2>
+    <p>The same computation, plus one line that copies raw records into the output.</p>
+    <pre>+ &quot;raw_records&quot;: [json.loads(l) for l in shard.decode().splitlines()[:20]],  # ADDED: leak raw data</pre>
+    <p>One changed line gives an unrelated digest, so the imposter can't pass as the promise.</p>
+    <div class="pair">
+      <div><span class="label">Promised digest</span><span class="digest">sha256:662efdda7a0630462c79f5ef1a7451f2b44022845972a39f0e3c06ca55fca243</span></div>
+      <div><span class="label">Imposter digest</span><span class="digest">sha256:a1d3cfd55a732f1c4b906243115c7cad5dfff1f680c3e3c21e8f0e0cf630f984</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. The promised image ran</h2>
+    <p>Google's attestation service signed a token describing the running VM. The computation party
+       verified it before decrypting the result.</p>
+    <table>
+      <tr><td>Signed by</td><td><code>https://confidentialcomputing.googleapis.com</code></td></tr>
+      <tr><td>Hardware</td><td>GCP_INTEL_TDX</td></tr>
+      <tr><td>Software</td><td>CONFIDENTIAL_SPACE</td></tr>
+      <tr><td>Attested image digest</td><td><code>sha256:662efdda7a0630462c79f5ef1a7451f2b44022845972a39f0e3c06ca55fca243</code>
+        <span class="check">matches the promise</span></td></tr>
+      <tr><td>Runs as</td><td><code>demo-vm@cdr-sandbox-1012.iam.gserviceaccount.com</code></td></tr>
+      <tr><td>Debug status</td><td>enabled (demo uses the debug image so logs are visible)</td></tr>
+    </table>
+    <h3>What the computation party received</h3>
+    <p>Records per class, from the promised computation's output. No individual record left the VM.</p>
+    <div class="chart"><svg viewBox="0 0 430 220" role="img" aria-label="Records per class, as computed by the promised image"><g transform="translate(0,0)"><text x="56" y="15" class="lbl" text-anchor="end">class 0</text><rect x="64" y="3" width="87.3" height="14" rx="2" class="bar"></rect><text x="157.3" y="15" class="val">1,454</text></g><g transform="translate(0,22)"><text x="56" y="15" class="lbl" text-anchor="end">class 1</text><rect x="64" y="3" width="165.5" height="14" rx="2" class="bar"></rect><text x="235.5" y="15" class="val">2,756</text></g><g transform="translate(0,44)"><text x="56" y="15" class="lbl" text-anchor="end">class 2</text><rect x="64" y="3" width="161.0" height="14" rx="2" class="bar"></rect><text x="231.0" y="15" class="val">2,681</text></g><g transform="translate(0,66)"><text x="56" y="15" class="lbl" text-anchor="end">class 3</text><rect x="64" y="3" width="112.9" height="14" rx="2" class="bar"></rect><text x="182.9" y="15" class="val">1,880</text></g><g transform="translate(0,88)"><text x="56" y="15" class="lbl" text-anchor="end">class 4</text><rect x="64" y="3" width="297.2" height="14" rx="2" class="bar"></rect><text x="367.2" y="15" class="val">4,949</text></g><g transform="translate(0,110)"><text x="56" y="15" class="lbl" text-anchor="end">class 5</text><rect x="64" y="3" width="300.0" height="14" rx="2" class="bar"></rect><text x="370.0" y="15" class="val">4,996</text></g><g transform="translate(0,132)"><text x="56" y="15" class="lbl" text-anchor="end">class 6</text><rect x="64" y="3" width="112.2" height="14" rx="2" class="bar"></rect><text x="182.2" y="15" class="val">1,868</text></g><g transform="translate(0,154)"><text x="56" y="15" class="lbl" text-anchor="end">class 7</text><rect x="64" y="3" width="174.4" height="14" rx="2" class="bar"></rect><text x="244.4" y="15" class="val">2,904</text></g><g transform="translate(0,176)"><text x="56" y="15" class="lbl" text-anchor="end">class 8</text><rect x="64" y="3" width="196.5" height="14" rx="2" class="bar"></rect><text x="266.5" y="15" class="val">3,272</text></g><g transform="translate(0,198)"><text x="56" y="15" class="lbl" text-anchor="end">class 9</text><rect x="64" y="3" width="194.6" height="14" rx="2" class="bar"></rect><text x="264.6" y="15" class="val">3,240</text></g></svg></div>
+  </section>
+
+  <section>
+    <h2>4. The imposter was refused</h2>
+    <p>The operator launched the imposter on the same kind of VM. The harness inside the image makes no
+       check of its own; it simply asked for the key. Google's key release compared the attested digest
+       with the promise and refused, so the image never held the key and never decrypted a record.</p>
+    <pre>job failed before reading data: RetryError: Timeout of 60.0s exceeded, last exception: 503 Getting metadata from plugin failed with error: (&#x27;Error code unauthorized_client: The given credential is rejected by the attribute condition.&#x27;, &#x27;{&quot;error&quot;:&quot;unauthorized_client&quot;,&quot;error_description&quot;:&quot;The given credential is rejected by the attribute condition.&quot;}&#x27;)</pre>
+  </section>
+
+  <section>
+    <h2>How the binding works</h2>
+    <ol>
+      <li>The data owner encrypts the records and wraps the data key with Cloud KMS. Only their key
+          pool can unwrap it, and only for an attested VM.</li>
+      <li>Confidential Space measures the image the VM boots and puts its digest in a token signed
+          by Google. The operator can't change the digest it reports.</li>
+      <li>The pool trades that token for credentials only if the digest equals the promise. Any other
+          image gets no credentials and so no key.</li>
+    </ol>
+    <div class="note">
+      <p>This run used throwaway keys and the debug image, which keeps logs visible. A production run uses
+         the hardened image and keys that refuse debug images.</p>
+      <p>The binding guarantees which code touches the data, not what that code does. The owner relies on
+         the promised image's behavior, for example after an audit of its source.</p>
+    </div>
+  </section>
+</div>
+
+</body></html>

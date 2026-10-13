@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confidential Data Rental — Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #0b1222; overflow: hidden; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  #stage > section { position: absolute; inset: 0; box-sizing: border-box; overflow: hidden; }
+  #stage > section:not(.on) { display: none !important; }
+  #stage > section.on { animation: fade .35s ease; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #stage > section.on { animation: none; } }
+  section h1, section h2, section h3, section p { margin: 0; }
+  section aside { display: none; }
+  section table { border-collapse: collapse; width: 100%; }
+  section th, section td { padding: 18px 20px; text-align: left; vertical-align: top; border-bottom: 1px solid #D9DFE7; }
+  section th { font-weight: 600; }
+  .bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 6px; align-items: center;
+          background: rgba(20,33,61,.82); color: #FBFAF6; border-radius: 999px; padding: 6px 8px;
+          font: 500 13px/1 "Public Sans", system-ui, sans-serif; opacity: .25; transition: opacity .2s; }
+  .bar:hover, .bar:focus-within { opacity: 1; }
+  .bar button { background: none; border: 0; color: inherit; font: inherit; font-size: 18px; width: 34px; height: 30px; border-radius: 999px; cursor: pointer; }
+  .bar button:hover { background: rgba(255,255,255,.15); }
+  #n { min-width: 52px; text-align: center; }
+</style>
+</head>
+<body>
+<div id="stage">
+<section id="cover" data-transition="fade" style="background:#14213D;color:#FBFAF6;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<p style="font-size:28px;color:#8DB5EE;text-transform:uppercase;letter-spacing:4px;font-weight:600">Confidential Data Rental</p>
+<div style="display:flex;flex-direction:column;gap:36px">
+<h1 style="font-family:'Libre Baskerville', Georgia, serif;font-size:112px;font-weight:700;line-height:1.05;width:1560px">Rent your data without handing it over</h1>
+<p style="font-size:40px;color:#BFD8D5;width:1400px;line-height:1.35">A data owner's records can be decrypted only inside a Google Confidential VM running the one computation the owner approved. Shown working live on Google Cloud in October 2026.</p>
+</div>
+<p style="font-size:28px;color:#8DB5EE">Business overview</p>
+<aside>Opening line: today, renting data means handing over a copy and trusting a contract. This deck shows a way to rent data where the copy never leaves a locked box, and the box opens only for the computation the owner approved.</aside>
+</section>
+<section id="vision" data-transition="fade" style="background:#FBFAF6;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">Our vision</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:88px;font-weight:700;line-height:1.1;width:1664px">Data is the fuel of the AI era</h2>
+<p style="font-size:34px;color:#4A5568;line-height:1.4;width:1560px">Every model, every forecast, every assistant runs on it. But fuel has one property data lacks: when you sell a barrel, you no longer have the barrel. Share a dataset and the buyer keeps it forever. So the most valuable data in the world sits unused, locked inside the organizations that hold it.</p>
+<div style="background:#14213D;padding:40px 48px;border-radius:16px;width:1560px">
+<p style="font-size:34px;color:#FBFAF6;line-height:1.4;font-weight:600">We want data to be rented the way fuel is sold: by the use, under the owner's terms, without the owner ever losing it.</p>
+</div>
+<aside>The analogy, and its one flaw. Oil changes hands; data gets copied. Our platform gives data the property fuel has: it can be used once, by one approved process, and the owner keeps it.</aside>
+</section>
+<section id="problem" data-transition="fade" style="background:#FBFAF6;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">The problem</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">Renting data today means giving it away</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#EEF2F7;padding:40px;border-radius:16px">
+<h3 style="font-size:36px;font-weight:600">The data owner</h3>
+<p style="font-size:28px;color:#4A5568;line-height:1.4">Hands over a copy and relies on a contract. Once the copy is out, nothing brings it back.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#EEF2F7;padding:40px;border-radius:16px">
+<h3 style="font-size:36px;font-weight:600">The computation party</h3>
+<p style="font-size:28px;color:#4A5568;line-height:1.4">Its method is its edge. Sending that code to the owner's systems exposes it.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#EEF2F7;padding:40px;border-radius:16px">
+<h3 style="font-size:36px;font-weight:600">The platform in between</h3>
+<p style="font-size:28px;color:#4A5568;line-height:1.4">Whoever runs it can see both sides, so it becomes the target and the liability.</p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5568;line-height:1.4;width:1500px">Each side has to trust the other, and both have to trust the platform. That is why most valuable data is never rented at all.</p>
+<aside>Three parties, three reasons the deal does not happen. The fix has to remove the need for trust on all three, not just one.</aside>
+</section>
+<section id="idea" data-transition="fade" style="background:#2C5A96;color:#FBFAF6;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:48px">
+<p style="font-size:24px;color:#BFD8F5;text-transform:uppercase;letter-spacing:3px;font-weight:600">The idea</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:88px;font-weight:700;line-height:1.1;width:1600px">The data opens only for the computation the owner approved</h2>
+<p style="font-size:34px;color:#DCE8F7;line-height:1.4;width:1500px">The data is encrypted before it leaves the owner. The computation is sealed into an image with a fingerprint. The owner approves that fingerprint, and the key that unlocks the data is released only to a Google Confidential VM that proves it is running exactly that image.</p>
+<aside>The fingerprint is a digest: a hash of every byte of the image. Change one line of code and the fingerprint changes, so the key stays locked.</aside>
+</section>
+<section id="who-sees-what" data-transition="fade" style="background:#FBFAF6;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">How it works</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">Who sees what</h2>
+</div>
+<table style="font-size:26px;color:#14213D">
+<tr style="background:#EEF2F7"><th style="width:22%;text-align:left">Party</th><th style="width:39%;text-align:left">Sees</th><th style="width:39%;text-align:left">Never sees</th></tr>
+<tr><td>Data owner</td><td>The computation's fingerprint, and each run's outcome</td><td>The computation itself, or any result</td></tr>
+<tr><td>Computation party</td><td>Its own code, the data's shape and size, and its results</td><td>A single record of the data</td></tr>
+<tr><td>Platform operator</td><td>Encrypted data and timing</td><td>Data in the clear, or results</td></tr>
+<tr><td>Google Cloud</td><td>That an approved image is running, which it attests</td><td>The data: hardware encryption hides the VM's memory even from Google's software</td></tr>
+</table>
+<p style="font-size:28px;color:#4A5568;line-height:1.4;width:1500px">No single party, including the platform, sees both the data and the computation. The data is readable only inside the sealed VM, by the approved code.</p>
+<aside>The important row is the platform operator. Even we, running the service, see only ciphertext.</aside>
+</section>
+<section id="how-it-works" data-transition="fade" style="background:#EEF2F7;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">How it works</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">A rental in five steps</h2>
+</div>
+<div style="display:flex;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;color:#2C5A96;font-weight:600">01</p>
+<h3 style="font-size:32px;font-weight:600">Promise</h3>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">The computation party uploads its code. It becomes an image, and the image's fingerprint is published.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;color:#2C5A96;font-weight:600">02</p>
+<h3 style="font-size:32px;font-weight:600">Approve</h3>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">The data owner approves that fingerprint. Their key policy on Google Cloud now names it.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;color:#2C5A96;font-weight:600">03</p>
+<h3 style="font-size:32px;font-weight:600">Encrypt</h3>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">The data is encrypted. The key sits in Google Cloud KMS and is released only under that policy.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;color:#2C5A96;font-weight:600">04</p>
+<h3 style="font-size:32px;font-weight:600">Run</h3>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">A Confidential VM boots the image. Google attests it, the fingerprint matches, the key is released.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;color:#2C5A96;font-weight:600">05</p>
+<h3 style="font-size:32px;font-weight:600">Result</h3>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">The computation runs inside the VM. The result goes to the computation party, sealed to its key.</p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5568;line-height:1.4;width:1500px">Once the owner has approved the fingerprint, every step is automatic. A run takes about two minutes, and the VM is deleted afterwards.</p>
+<aside>Walk the five steps left to right. The owner acts once, at step two. Everything after that is enforced by Google Cloud, not by people.</aside>
+</section>
+<section id="guarantee" data-transition="fade" style="background:#FBFAF6;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">The guarantee</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">Why this holds, in plain terms</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<div style="display:flex;gap:24px;background:#EEF2F7;padding:36px;border-radius:16px;align-items:start">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2C5A96;width:56px;height:56px;flex:none" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg>
+<div style="display:flex;flex-direction:column;gap:10px">
+<h3 style="font-size:32px;font-weight:600">Encrypted everywhere</h3>
+<p style="font-size:26px;color:#4A5568;line-height:1.4">At rest, in transit, and in use: the processor encrypts the VM's memory, so not even the cloud provider can read it.</p>
+</div>
+</div>
+<div style="display:flex;gap:24px;background:#EEF2F7;padding:36px;border-radius:16px;align-items:start">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2C5A96;width:56px;height:56px;flex:none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+<div style="display:flex;flex-direction:column;gap:10px">
+<h3 style="font-size:32px;font-weight:600">Measured, not promised</h3>
+<p style="font-size:26px;color:#4A5568;line-height:1.4">Google's hardware measures the running image and signs a statement of its fingerprint. No party can edit that statement.</p>
+</div>
+</div>
+<div style="display:flex;gap:24px;background:#EEF2F7;padding:36px;border-radius:16px;align-items:start">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2C5A96;width:56px;height:56px;flex:none" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg>
+<div style="display:flex;flex-direction:column;gap:10px">
+<h3 style="font-size:32px;font-weight:600">The owner holds the key policy</h3>
+<p style="font-size:26px;color:#4A5568;line-height:1.4">The key is released only when the signed fingerprint equals the one the owner approved. The platform cannot override it.</p>
+</div>
+</div>
+<div style="display:flex;gap:24px;background:#EEF2F7;padding:36px;border-radius:16px;align-items:start">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#C8702A;width:56px;height:56px;flex:none" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>
+<div style="display:flex;flex-direction:column;gap:10px">
+<h3 style="font-size:32px;font-weight:600">Any change is refused</h3>
+<p style="font-size:26px;color:#4A5568;line-height:1.4">One changed line gives a different fingerprint. The key stays locked, and not a single record is read.</p>
+</div>
+</div>
+</div>
+<aside>If someone asks "why should I trust this?", the answer is the second card: nobody vouches for the code, the hardware measures it.</aside>
+</section>
+<section id="proof" data-transition="fade" style="background:#EEF2F7;color:#14213D;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#2C5A96;text-transform:uppercase;letter-spacing:3px;font-weight:600">Proof</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">What the live run showed</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<img src="run1-key-released.jpg" alt="The portal's page for run 1: a green 'key released' banner, the attestation signed by Google, hardware Intel TDX, and the attested digest equal to the approved one" style="width:816px;height:510px;object-fit:contain;border-radius:12px;background:#FBFAF6;border:1px solid #D9DFE7">
+<p style="font-size:26px;color:#4A5568;line-height:1.4">Run 1, the approved image. Google attested the VM, the key was released, and the computation party received statistics over 30,000 records.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<img src="run2-key-refused.jpg" alt="The portal's page for run 2: a red 'key refused' banner, the one-line change that was made, and Google's message that the credential is rejected by the attribute condition" style="width:816px;height:510px;object-fit:contain;border-radius:12px;background:#FBFAF6;border:1px solid #D9DFE7">
+<p style="font-size:26px;color:#4A5568;line-height:1.4">Run 2, one line changed. A different fingerprint, so Google's key release refused it. Not a single record was decrypted.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1664px">Live on Google Cloud, 12 October 2026. Confidential VM c3-standard-4 with Intel TDX, sandbox project cdr-sandbox-1012.</p>
+<aside>Both screenshots are from the real portal. The refusal on the right came from Google's key release, not from our own code: the modified image never held the key.</aside>
+</section>
+<section id="next" data-transition="fade" style="background:#14213D;color:#FBFAF6;font-family:'Public Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;color:#8DB5EE;text-transform:uppercase;letter-spacing:3px;font-weight:600">What's next</p>
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">From demo to service</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1D2D4F;padding:40px;border-radius:16px">
+<h3 style="font-size:34px;font-weight:600">Harden for real data</h3>
+<p style="font-size:26px;color:#BFD8D5;line-height:1.4">Production VM images instead of the demo's debug image. A key and policy per data owner. Each party encrypts and verifies on its own machine, so the platform only relays ciphertext.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1D2D4F;padding:40px;border-radius:16px">
+<h3 style="font-size:34px;font-weight:600">Train models, not just statistics</h3>
+<p style="font-size:26px;color:#BFD8D5;line-height:1.4">A second mode trains machine-learning models under a privacy budget, so even the trained model cannot give away a record. GPU support follows.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1D2D4F;padding:40px;border-radius:16px">
+<h3 style="font-size:34px;font-weight:600">Run it as a service</h3>
+<p style="font-size:26px;color:#BFD8D5;line-height:1.4">Public hosting with accounts, usage limits and billing. One Confidential VM per run, deleted when the run ends.</p>
+</div>
+</div>
+<p style="font-size:28px;color:#BFD8D5;line-height:1.4;width:1500px">Everything shown today runs on standard Google Cloud services. No custom hardware, and no special agreements with the cloud provider.</p>
+<aside>Close on the last line: this is built from services anyone can buy today. The remaining work is engineering, not research.</aside>
+</section>
+</div>
+<div class="bar"><button id="prev" aria-label="Previous slide">‹</button><span id="n"></span><button id="next" aria-label="Next slide">›</button><button id="fs" aria-label="Full screen">⤢</button></div>
+<script>
+  const s = [...document.querySelectorAll('#stage > section')], stage = document.getElementById('stage');
+  let i = Math.max(0, s.findIndex(x => '#' + x.id === location.hash));
+  function fit() {
+    const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = `scale(${k}) translate(-50%, -50%)`;
+  }
+  function show(j) {
+    i = Math.min(s.length - 1, Math.max(0, j));
+    s.forEach((x, k) => x.classList.toggle('on', k === i));
+    document.getElementById('n').textContent = `${i + 1} / ${s.length}`;
+    history.replaceState(null, '', '#' + s[i].id);
+  }
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(s.length - 1);
+  });
+  stage.addEventListener('click', e => show(i + (e.clientX < innerWidth / 3 ? -1 : 1)));
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  document.getElementById('fs').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+  fit(); show(i);
+</script>
+</body>
+</html>
