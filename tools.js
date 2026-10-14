@@ -36,21 +36,22 @@ window.LUNA_TOOLS = [
   {
     name: "Confidential Data Rental",
     tagline: "Rent your data without handing it over.",
-    description: "A data owner encrypts a dataset. A computation party ships its code as a container image. Google's hardware attestation releases the key only to the exact image the owner approved, inside a Confidential VM. Change one line of the code and the key stays locked.",
+    description: "A data owner encrypts a dataset. A computation party ships its code as a container image. Google's hardware attestation releases the key only to the exact image the owner approved, inside a Confidential VM. Change one line of the code and the key stays locked. The renter can also state requirements on the data; the owner learns only whether they hold.",
     tags: ["Confidential computing", "Data", "Privacy"],
     status: "research",
-    // Add demo: "<portal url>" as the first link once the public portal is up; it renders as the "Try it" pill.
+    // The first link renders as the "Try it" pill. The portal needs an invite code to register.
     links: {
-      "Watch the demo": "assets/data-rental-demo.mp4",
-      "Slides": "assets/data-rental/slides.html",
-      "Evidence": "assets/data-rental/evidence.html"
+      demo: "https://rental-34-9-243-171.sslip.io",
+      "Watch the demo": "assets/data-rental-demo-v2.mp4",
+      "Slides": "https://claude.ai/artifact/ED1ABRVmt9h68szUMpxL8f",
+      "Evidence": "https://claude.ai/artifact/LumwkkY3Pj1S3cXsvEc7P6"
     },
     image: "assets/data-rental.svg",
     featured: true,
     steps: [
-      { title: "Promise", text: "The computation party uploads its code. It becomes a container image whose digest, a fingerprint of every byte, is published to the owner." },
-      { title: "Approve", text: "The owner approves that digest and uploads encrypted data. Their key policy on Google Cloud names that digest and nothing else." },
-      { title: "Run", text: "A Confidential VM boots the image. Google attests it; the key is released only if the digest matches. The result goes back sealed to the computation party." }
+      { title: "Promise", text: "The computation party uploads its code and, privately, its requirements on the data. Each becomes a container image; the owner sees only the digests, fingerprints of every byte." },
+      { title: "Approve", text: "The owner approves those digests and uploads encrypted data. Their key policy on Google Cloud names those digests and nothing else." },
+      { title: "Run", text: "Confidential VMs boot the images. Google attests them; keys are released only to approved digests. The owner learns one bit about the requirements, satisfied or not. The result goes back sealed." }
     ]
   },
 ];
