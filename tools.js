@@ -16,8 +16,8 @@
 window.LUNA_TOOLS = [
   {
     name: "Sherlock",
-    tagline: "Each AI agent passed review. Together, they leaked the key.",
-    description: "Finds what the AI agents on your laptop (Claude Code, Codex, Cursor and more) can do as a group: the cheapest attack, step by step, or a certificate that none exists.",
+    tagline: "Two of three, each. All three, together.",
+    description: "Meta\u2019s Agents Rule of Two says an agent should hold at most two of: untrusted input, secrets, outside actions. Sherlock finds the fleets where each agent obeys it and the group still breaks it \u2014 the cheapest attack, step by step, or a proof that none exists.",
     tags: ["AI agents", "Security", "SAT"],
     status: "research",
     links: { demo: "https://sherlocksec.org" },
