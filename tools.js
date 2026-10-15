@@ -43,8 +43,8 @@ window.LUNA_TOOLS = [
     links: {
       demo: "https://rental-34-9-243-171.sslip.io",
       "Watch the demo": "assets/data-rental-demo-v2.mp4",
-      "Slides": "https://claude.ai/artifact/ED1ABRVmt9h68szUMpxL8f",
-      "Evidence": "https://claude.ai/artifact/LumwkkY3Pj1S3cXsvEc7P6"
+      "Slides": "assets/data-rental/slides.html",
+      "Evidence": "assets/data-rental/evidence.html"
     },
     image: "assets/data-rental.svg",
     featured: true,
@@ -52,6 +52,25 @@ window.LUNA_TOOLS = [
       { title: "Promise", text: "The computation party uploads its code and, privately, its requirements on the data. Each becomes a container image; the owner sees only the digests, fingerprints of every byte." },
       { title: "Approve", text: "The owner approves those digests and uploads encrypted data. Their key policy on Google Cloud names those digests and nothing else." },
       { title: "Run", text: "Confidential VMs boot the images. Google attests them; keys are released only to approved digests. The owner learns one bit about the requirements, satisfied or not. The result goes back sealed." }
+    ]
+  },
+  {
+    name: "VeriRouter",
+    tagline: "Make OpenRouter more open.",
+    description: "An LLM router can change your prompt, the answer, which model serves you and which model it claims did. VeriRouter makes those hidden steps verifiable with zero-knowledge proofs and provider-signed certificates, while the router's semantic index and rewrite banks stay private.",
+    tags: ["LLM routing", "Zero-knowledge proofs", "Verification"],
+    status: "research",
+    links: {
+      demo: "https://verirouter.org/#interactive",
+      "Website": "https://verirouter.org/",
+      paper: "https://arxiv.org/abs/2610.17431"
+    },
+    image: "assets/verirouter.png",
+    featured: true,
+    steps: [
+      { title: "Model selection", text: "A zero-knowledge proof shows the selected model was eligible for the request, without revealing the router's semantic index." },
+      { title: "Request rewriting", text: "A zero-knowledge proof shows every change to your prompt came from an endorsed rewrite, without revealing the rewrite banks." },
+      { title: "Authenticated serving", text: "The backend provider signs a certificate binding the model, the processed request and the returned answer." }
     ]
   },
 ];
